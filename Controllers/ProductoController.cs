@@ -16,5 +16,21 @@ namespace SistemaGestionWebApi
             Producto producto = ProductoCon.obtenerProducto(descripciones);
             return producto;
         }
+
+        [HttpPost("/producto/")]
+        public void CrearProducto(Producto producto)
+        {
+            ProductoCon.InsertarProducto(producto);
+        }
+        [HttpPut("/producto/")]
+        public void ModificarProducto(Producto producto)
+        {
+            ProductoCon.ModificarProducto(producto);
+        }
+        [HttpDelete("/producto/{id}")]
+        public void EliminarProducto (int id)
+        {
+            ProductoCon.EliminarProducto(id);
+        }
     }
 }

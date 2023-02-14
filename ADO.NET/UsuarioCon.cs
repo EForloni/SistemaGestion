@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace SistemaGestionWebApi
 {
-    public class UsuarioController
+    public class UsuarioCon
     {
         public static string cadenaConexion = "Data Source=DESKTOP-HPHJBO6;Initial Catalog=SistemaGestion;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
@@ -75,6 +75,29 @@ namespace SistemaGestionWebApi
                 }
 
             }
+            return usuario;
+        }
+        public static Usuario ModificarUsuario(Usuario usuario)
+        {
+
+            using (SqlConnection conn = new SqlConnection(cadenaConexion))
+            {
+                SqlCommand comando = new SqlCommand();
+
+                comando.Connection = conn;
+                comando.Connection.Open();
+                comando.CommandText = @"UPDATE Usuario SET [Nombre] = @nombre, [Apellido] =  @apellido, [NombreUsuario] =  @nombreUsuario, [Contraseña] =  @contraseña, [Mail] = @mail WHERE id = @ID";
+
+                comando.Parameters.AddWithValue("@nombre", usuario.Nombre);
+                comando.Parameters.AddWithValue("@apellido", usuario.Apellido);
+                comando.Parameters.AddWithValue("@nombreUsuario", usuario.NombreUsuario);
+                comando.Parameters.AddWithValue("@contraseña", usuario.Contraseña);
+                comando.Parameters.AddWithValue("@mail", usuario.Mail);
+                comando.Parameters.AddWithValue("@ID", usuario.Id);
+                comando.ExecuteNonQuery();
+                comando.Connection.Close();
+            }
+
             return usuario;
         }
     }
