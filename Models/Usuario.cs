@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Proyecto1.Clases
+namespace SistemaGestionWebApi
 {
     public class Usuario
     {

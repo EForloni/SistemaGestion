@@ -22,7 +22,7 @@ namespace SistemaGestionWebApi
 
                 var parameter = new SqlParameter();
                 parameter.ParameterName = "Descripciones";
-                parameter.SqlDbType = SqlDbType.string;
+                parameter.SqlDbType = SqlDbType.VarChar;
                 parameter.Value = Descripciones;
 
                 conn.Open();

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Proyecto1.Modelos
+namespace SistemaGestionWebApi
 {
     public class Producto
     {
