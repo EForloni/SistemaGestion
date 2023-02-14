@@ -10,6 +10,7 @@ namespace SistemaGestionWebApi
     {
         public int id { get; set; }
         public string comentarios { get; set; }
+        public int idusuario { get; set; }
 
     }
 }

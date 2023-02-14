@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 
 namespace SistemaGestionWebApi
 {
-    public class ProductoVendidoController
+    public class ProductoVendidoCon
     {
         public static string cadenaConexion = "Data Source=DESKTOP-HPHJBO6;Initial Catalog=SistemaGestion;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
@@ -29,16 +29,14 @@ namespace SistemaGestionWebApi
                 {
                     while (reader.Read())
                     {
-                        Producto producto = new Producto();
+                        ProductoVendido producto = new ProductoVendido();
 
                             producto.id = (int)reader.GetInt64(0);
-                            producto.descripciones = reader.GetString(1);
-                            producto.costo = (int)reader.GetDecimal(2);
-                            producto.precioventa = (int)reader.GetDecimal(3);
-                            producto.stock = reader.GetInt32(4);
-                            producto.idusuario = (int)reader.GetInt64(5);
+                            producto.stock = (int)reader.GetDecimal(1);
+                            producto.idproducto = (int)reader.GetDecimal(2);
+                            producto.idventa = (int)reader.GetDecimal(3);
 
-                        producto.Add(producto);
+                        productosVendidos.Add(producto);
                     }
                 }
             }

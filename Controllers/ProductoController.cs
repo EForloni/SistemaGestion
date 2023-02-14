@@ -13,7 +13,7 @@ namespace SistemaGestionWebApi
         [HttpGet("/producto/{descripciones}")]
         public Producto ObtenerProductoPorDescripciones(string descripciones)
         {
-            Producto producto = ProductoController.obtenerProducto(descripciones);
+            Producto producto = ProductoCon.obtenerProducto(descripciones);
             return producto;
         }
     }

@@ -77,31 +77,6 @@ namespace SistemaGestionWebApi
             }
             return usuario;
         }
-
-        public static void ModificarUsuario(Usuario usuario, long id)
-        {
-
-            using (SqlConnection conn = new SqlConnection(cadenaConexion))
-            {
-                try
-                {
-                    SqlCommand comando = new SqlCommand("UPDATE Usuario SET Nombre = @nombre, Apellido = @apellido, NombreUsuario = @nombreUsuario, Contraseña = @contraseña, Mail = @mail WHERE Id = @id", conn);
-                    comando.Parameters.AddWithValue("@id", usuario.Id);
-                    comando.Parameters.AddWithValue("@nombre", usuario.Nombre);
-                    comando.Parameters.AddWithValue("@apellido", usuario.Apellido);
-                    comando.Parameters.AddWithValue("@nombreUsuario", usuario.NombreUsuario);
-                    comando.Parameters.AddWithValue("@contraseña", usuario.Contraseña);
-                    comando.Parameters.AddWithValue("@mail", usuario.Mail);
-                    conn.Open();
-                    return comando.ExecuteNonQuery();
-                }
-                catch (Exception )
-                {
-                    return -1;
-                }
-            }
-        }
-
     }
 }
 
