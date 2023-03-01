@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace SistemaGestionWebApi
 {
@@ -13,32 +14,38 @@ namespace SistemaGestionWebApi
     {
         public static string cadenaConexion = "Data Source=DESKTOP-HPHJBO6;Initial Catalog=SistemaGestion;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
-        public static Producto obtenerProductoPorId(long id)
+        public static List<Producto> ObtenerProducto(long id)
         {
+
+            var listaProductos = new List<Producto>();
             using (SqlConnection conn = new SqlConnection(cadenaConexion))
             {
-                SqlCommand comando = new SqlCommand("SELECT * FROM Producto WHERE IdUsuario=@id", conn);
 
-                var parameter = new SqlParameter();
-                parameter.ParameterName = "Id";
-                parameter.SqlDbType = SqlDbType.BigInt;
-                parameter.Value = id;
-
+                SqlCommand comando = new SqlCommand("SELECT * FROM Producto WHERE IdUsuario=@IdUsuario", conn);
+                comando.Parameters.AddWithValue("@idUsuario", id);
                 conn.Open();
 
                 SqlDataReader reader = comando.ExecuteReader();
-                Producto producto = new Producto();
 
                 if (reader.HasRows)
                 {
-                        producto.id = (int)reader.GetInt64(0);
+                    while (reader.Read())
+                    {
+                        Producto producto = new Producto();
+                        producto.id = reader.GetInt32(0);
                         producto.descripciones = reader.GetString(1);
-                        producto.idusuario = (int)reader.GetInt64(2);
+                        producto.costo = reader.GetInt32(2);
+                        producto.precioventa = reader.GetInt32(3);
+                        producto.stock = reader.GetInt32(4);
+                        producto.idusuario = reader.GetInt32(5);
+
+                        listaProductos.Add(producto);
+                    }
                 }
-                return producto;
+                return listaProductos;
             }
-            
         }
+       
         public static Producto InsertarProducto(Producto producto)
         {
 
@@ -104,14 +111,6 @@ namespace SistemaGestionWebApi
             }
 
             return id;
-        }
-
-
-        public static Producto UpdateStockProducto(long id, int cantidadVendidos)
-        {
-            Producto producto = obtenerProductoPorId(id);
-            producto.stock -= cantidadVendidos;
-            return ModificarProducto(producto);
         }
     }
 }
