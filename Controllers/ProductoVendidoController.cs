@@ -11,9 +11,9 @@ namespace SistemaGestionWebApi
     public class ProductoVendidoController : ControllerBase
     {
         [HttpGet("/ProductoVendido/{id}/")]  //Traer Productos Vendidos
-        public void TraerProductoVendido (int id)
+        public void TraerProductoVendido (int idusuario)
         {
-            ProductoVendidoCon.obtenerProductosVendidos(id);
+            ProductoVendidoCon.obtenerProductosVendidos(idusuario);
         }
     }
 }
