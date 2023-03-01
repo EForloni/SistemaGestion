@@ -17,7 +17,7 @@ namespace SistemaGestionWebApi
             VentaCon.obtenerVentas(idusuario);
         }
 
-        [HttpPost("/Ventas/{idusuario}/")]
+        [HttpPost("/Ventas/{idusuario}/")]  //Cargar Ventas
         public void CargarVentas (List<Producto> productos, int idUsuario)
         {
             VentaCon.CargarVenta(idUsuario, productos);
