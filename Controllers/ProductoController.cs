@@ -10,12 +10,7 @@ namespace SistemaGestionWebApi
     [Route("api/[controller]")]
     public class ProductoController : ControllerBase
     {
-        [HttpGet("/producto/{descripciones}")]
-        public Producto ObtenerProductoPorDescripciones(string descripciones)
-        {
-            Producto producto = ProductoCon.obtenerProducto(descripciones);
-            return producto;
-        }
+        
 
         [HttpPost("/producto/")]
         public void CrearProducto(Producto producto)

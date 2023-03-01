@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 
 namespace SistemaGestionWebApi
 {
-    public class LoginController
+    public class LoginCon
     {
         public static string cadenaConexion = "Data Source=DESKTOP-HPHJBO6;Initial Catalog=SistemaGestion;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
