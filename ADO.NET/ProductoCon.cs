@@ -14,7 +14,7 @@ namespace SistemaGestionWebApi
     {
         public static string cadenaConexion = "Data Source=DESKTOP-HPHJBO6;Initial Catalog=SistemaGestion;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
-        public static List<Producto> ObtenerProducto(long id)
+        public static List<Producto> ObtenerProductos(int idusuario)
         {
 
             var listaProductos = new List<Producto>();
@@ -22,7 +22,7 @@ namespace SistemaGestionWebApi
             {
 
                 SqlCommand comando = new SqlCommand("SELECT * FROM Producto WHERE IdUsuario=@IdUsuario", conn);
-                comando.Parameters.AddWithValue("@idUsuario", id);
+                comando.Parameters.AddWithValue("@idUsuario", idusuario);
                 conn.Open();
 
                 SqlDataReader reader = comando.ExecuteReader();
@@ -111,6 +111,35 @@ namespace SistemaGestionWebApi
             }
 
             return id;
+        }
+        public static Producto ObtenerProducto(long id)
+        {
+            Producto producto = new Producto();
+            using (SqlConnection conn = new SqlConnection(cadenaConexion))
+            {
+                
+
+                SqlCommand comando2 = new SqlCommand("SELECT * FROM Producto WHERE id=@Id", conn);
+                comando2.Parameters.AddWithValue("@Id", id);
+
+                conn.Open();
+
+                SqlDataReader reader = comando2.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+
+                    Producto productoTemporal = new Producto();
+                    producto.id = reader.GetInt32(0);
+                    producto.descripciones = reader.GetString(1);
+                    producto.costo = reader.GetInt32(2);
+                    producto.precioventa = reader.GetInt32(3);
+                    producto.stock = reader.GetInt32(4);
+                    producto.idusuario = reader.GetInt32(5);
+
+                }
+                return producto;
+            }
         }
     }
 }

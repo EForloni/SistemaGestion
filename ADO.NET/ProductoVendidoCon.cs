@@ -31,16 +31,37 @@ namespace SistemaGestionWebApi
                     {
                         ProductoVendido producto = new ProductoVendido();
 
-                            producto.id = (int)reader.GetInt64(0);
-                            producto.stock = (int)reader.GetDecimal(1);
-                            producto.idproducto = (int)reader.GetDecimal(2);
-                            producto.idventa = (int)reader.GetDecimal(3);
+                        producto.id = (int)reader.GetInt64(0);
+                        producto.stock = (int)reader.GetDecimal(1);
+                        producto.idproducto = (int)reader.GetDecimal(2);
+                        producto.idventa = (int)reader.GetDecimal(3);
 
                         productosVendidos.Add(producto);
                     }
                 }
             }
             return productosVendidos;
+        }
+
+        public static void InsertarProductoVendido(ProductoVendido productoVendido)
+        {
+            using (SqlConnection conn = new SqlConnection(cadenaConexion))
+            {
+
+                SqlCommand comando = new SqlCommand();
+
+                comando.Connection = conn;
+                comando.Connection.Open();
+                comando.CommandText = @"INSERT INTO ProductoVendido ([Stock], [IdProducto],[IdVenta] ) VALUES( @stock, @idProducto, @idVenta)";
+
+                comando.Parameters.AddWithValue("@stock", productoVendido.stock);
+                comando.Parameters.AddWithValue("@idProducto", productoVendido.idproducto);
+                comando.Parameters.AddWithValue("@idVenta", productoVendido.idventa);
+                comando.ExecuteNonQuery();
+                comando.Connection.Close();
+
+            }
+
         }
     }
 }
